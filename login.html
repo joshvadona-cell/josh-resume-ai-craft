@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - ResumeCraft AI</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-body">
+
+    <div class="auth-container">
+
+        <div class="auth-left">
+
+            <h1>ResumeCraft <span>AI</span></h1>
+
+            <h2>Welcome Back!</h2>
+
+            <p>
+                Continue building your professional career
+                with our AI-powered resume builder.
+            </p>
+
+            <div class="auth-icon">📄</div>
+
+        </div>
+
+
+        <div class="auth-right">
+
+            <h2>Login to Your Account</h2>
+
+            <p class="auth-subtitle">
+                Enter your details to continue.
+            </p>
+
+            <form id="loginForm">
+
+                <label>Email Address</label>
+
+                <input type="email"
+                    id="loginEmail"
+                    placeholder="Enter your email"
+                    required>
+
+                <label>Password</label>
+
+                <input type="password"
+                    id="loginPassword"
+                    placeholder="Enter your password"
+                    required>
+
+                <button type="submit" class="auth-submit">
+                    Login
+                </button>
+
+            </form>
+
+            <p id="loginMessage"></p>
+
+            <p class="auth-switch">
+                Don't have an account?
+                <a href="signup.html">Sign Up</a>
+            </p>
+
+            <a href="index.html" class="back-home">
+                ← Back to Home
+            </a>
+
+        </div>
+
+    </div>
+
+  <script src="script.js"></script>
+<script type="module" src="login-auth.js"></script>
+
+</body>
+</html>

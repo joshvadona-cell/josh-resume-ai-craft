@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Resume - ResumeCraft AI</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="builder-body">
+
+    <header class="builder-header">
+        <h2>ResumeCraft <span>AI</span></h2>
+        <a href="dashboard.html">← Back to Dashboard</a>
+    </header>
+
+    <main class="builder-container">
+
+        <div class="builder-heading">
+            <h1>Create Your Resume</h1>
+            <p>Fill in your details to build your professional resume.</p>
+        </div>
+
+        <form id="resumeForm">
+
+            <!-- Personal Information -->
+
+            <section class="form-section">
+
+                <h2>👤 Personal Information</h2>
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="fullName" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Professional Title</label>
+                        <input type="text" id="jobTitle" placeholder="Example: AI Developer">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Email Address *</label>
+                        <input type="email" id="email" placeholder="Enter email" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="phone" placeholder="Enter phone number">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Location</label>
+                        <input type="text" id="location" placeholder="City, State">
+                    </div>
+
+                    <div class="input-group">
+                        <label>LinkedIn Profile</label>
+                        <input type="url" id="linkedin" placeholder="LinkedIn URL">
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Career Objective -->
+
+            <section class="form-section">
+
+                <h2>🎯 Career Objective</h2>
+
+                <textarea id="objective"
+                    placeholder="Write your career objective..."
+                    rows="4"></textarea>
+
+            </section>
+
+
+            <!-- Education -->
+
+            <section class="form-section">
+
+                <h2>🎓 Education</h2>
+
+                <div class="input-group">
+                    <label>Degree / Course</label>
+                    <input type="text" id="degree" placeholder="B.Sc Artificial Intelligence">
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+                        <label>College / Institution</label>
+                        <input type="text" id="college" placeholder="College name">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Year of Passing</label>
+                        <input type="text" id="passingYear" placeholder="2027">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Percentage / CGPA</label>
+                        <input type="text" id="grade" placeholder="Enter percentage or CGPA">
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Skills -->
+
+            <section class="form-section">
+
+                <h2>💻 Technical Skills</h2>
+
+                <textarea id="skills"
+                    placeholder="Python, Java, HTML, CSS, SQL..."
+                    rows="3"></textarea>
+
+            </section>
+
+
+            <!-- Projects -->
+
+            <section class="form-section">
+
+                <h2>🚀 Projects</h2>
+
+                <div class="input-group">
+                    <label>Project Title</label>
+                    <input type="text" id="projectTitle" placeholder="Enter project name">
+                </div>
+
+                <div class="input-group">
+                    <label>Project Description</label>
+                    <textarea id="projectDescription"
+                        rows="4"
+                        placeholder="Describe your project..."></textarea>
+                </div>
+
+            </section>
+
+
+            <!-- Internship -->
+
+            <section class="form-section">
+
+                <h2>🏢 Internship / Experience</h2>
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+                        <label>Company Name</label>
+                        <input type="text" id="company" placeholder="Company name">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Job Role</label>
+                        <input type="text" id="role" placeholder="Intern / Developer">
+                    </div>
+
+                </div>
+
+                <div class="input-group">
+                    <label>Experience Description</label>
+                    <textarea id="experienceDescription"
+                        rows="3"
+                        placeholder="Describe your experience..."></textarea>
+                </div>
+
+            </section>
+
+
+            <!-- Certifications -->
+
+            <section class="form-section">
+
+                <h2>📜 Certifications</h2>
+
+                <textarea id="certifications"
+                    rows="3"
+                    placeholder="Enter your certifications..."></textarea>
+
+            </section>
+
+
+            <!-- Languages -->
+
+            <section class="form-section">
+
+                <h2>🌐 Languages Known</h2>
+
+                <input type="text" id="languages"
+                    placeholder="Tamil, English...">
+
+            </section>
+
+
+            <!-- Hobbies -->
+
+            <section class="form-section">
+
+                <h2>🎨 Hobbies</h2>
+
+                <input type="text" id="hobbies"
+                    placeholder="Reading, Sports, Music...">
+
+            </section>
+
+
+            <div class="builder-actions">
+
+                <button type="reset" class="reset-btn">
+                    Clear Form
+                </button>
+
+                <button type="submit" class="save-btn">
+                    Save & Continue →
+                </button>
+
+            </div>
+
+        </form>
+
+    </main>
+
+  <script src="script.js"></script>
+
+<script type="module" src="resume-save.js"></script>
+
+</body>
+</html>
