@@ -10,130 +10,513 @@ import {
     updateDoc
 } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
 
+
 const resumeForm = document.getElementById("resumeForm");
 
-if (resumeForm) {
+const photoInput = document.getElementById("profilePhoto");
+const photoPreview = document.getElementById("profilePhotoPreview");
 
-    onAuthStateChanged(auth, function (user) {
+const projectsContainer = document.getElementById("projectsContainer");
+const addProjectBtn = document.getElementById("addProjectBtn");
 
-        if (!user) {
-            window.location.href = "login.html";
-            return;
-        }
+let uploadedPhoto = "";
+let currentUser = null;
 
-        resumeForm.addEventListener("submit", async function (event) {
 
-            event.preventDefault();
+// PHOTO COMPRESSION
 
-            const fields = [
-                "fullName", "jobTitle", "email", "phone",
-                "location", "linkedin", "objective", "degree",
-                "college", "passingYear", "grade", "skills",
-                "projectTitle", "projectDescription", "company",
-                "role", "experienceDescription", "certifications",
-                "languages", "hobbies"
-            ];
+function compressPhoto(file) {
 
-            let resumeData = {};
+    return new Promise((resolve, reject) => {
 
-            fields.forEach(function (id) {
-                resumeData[id] = document.getElementById(id).value;
-            });
+        const reader = new FileReader();
 
-            const editResume = JSON.parse(
-    localStorage.getItem("selectedResumeForEdit") || "null"
-);
+        reader.onload = function (event) {
 
-resumeData.id = editResume ? editResume.id : Date.now();
+            const image = new Image();
 
-           try {
-    const resumeRef = doc(
-        db,
-        "users",
-        user.uid,
-        "resumes",
-        String(resumeData.id)
-    );
+            image.onload = function () {
 
-    if (editResume) {
-        // UPDATE EXISTING RESUME
-        await updateDoc(resumeRef, resumeData);
+                const canvas = document.createElement("canvas");
 
-        alert("Resume updated successfully!");
+                const maxSize = 250;
 
-        localStorage.removeItem("selectedResumeForEdit");
+                let width = image.width;
+                let height = image.height;
 
-    } else {
-        // SAVE NEW RESUME
-        await setDoc(resumeRef, resumeData);
+                if (width > height) {
+                    if (width > maxSize) {
+                        height *= maxSize / width;
+                        width = maxSize;
+                    }
+                } else {
+                    if (height > maxSize) {
+                        width *= maxSize / height;
+                        height = maxSize;
+                    }
+                }
 
-        alert("Resume saved successfully!");
-    }
+                canvas.width = width;
+                canvas.height = height;
 
-    // UPDATE LOCAL STORAGE
-    let resumes = JSON.parse(
-        localStorage.getItem("resumeCraftResumes") || "[]"
-    );
+                const context = canvas.getContext("2d");
 
-    const existingIndex = resumes.findIndex(
-        item => String(item.id) === String(resumeData.id)
-    );
+                context.drawImage(image, 0, 0, width, height);
 
-    if (existingIndex !== -1) {
-        resumes[existingIndex] = resumeData;
-    } else {
-        resumes.push(resumeData);
-    }
+                const compressedImage =
+                    canvas.toDataURL("image/jpeg", 0.65);
 
-    localStorage.setItem(
-        "resumeCraftResumes",
-        JSON.stringify(resumes)
-    );
+                if (compressedImage.length > 700000) {
+                    reject(new Error("Photo is too large."));
+                    return;
+                }
 
-    localStorage.setItem(
-        "selectedResumeForPreview",
-        JSON.stringify(resumeData)
-    );
+                resolve(compressedImage);
+            };
 
-    window.location.href = "resume-preview.html";
+            image.onerror = () => reject(new Error("Unable to load photo."));
 
-} catch (error) {
-    console.error("Firestore Error:", error);
-    alert("Resume save failed: " + error.message);
-}
-        });
+            image.src = event.target.result;
+        };
+
+        reader.onerror = () => reject(new Error("Unable to read photo."));
+
+        reader.readAsDataURL(file);
 
     });
 
 }
-// LOAD EXISTING RESUME FOR EDITING
+
+
+// PHOTO UPLOAD
+
+if (photoInput) {
+
+    photoInput.addEventListener("change", async function () {
+
+        const file = photoInput.files[0];
+
+        if (!file) return;
+
+        if (!["image/jpeg", "image/png"].includes(file.type)) {
+
+            alert("Please select JPG or PNG photo.");
+
+            photoInput.value = "";
+            return;
+        }
+
+        try {
+
+            uploadedPhoto = await compressPhoto(file);
+
+            photoPreview.src = uploadedPhoto;
+            photoPreview.style.display = "block";
+
+        } catch (error) {
+
+            alert(error.message);
+
+            photoInput.value = "";
+            uploadedPhoto = "";
+
+        }
+
+    });
+
+}
+
+
+// ADD MULTIPLE PROJECTS
+
+if (addProjectBtn && projectsContainer) {
+
+    addProjectBtn.addEventListener("click", function () {
+
+        const projectEntry = document.createElement("div");
+
+        projectEntry.className = "project-entry";
+
+        projectEntry.innerHTML = `
+            <hr>
+
+            <div class="input-group">
+                <label>Project Title</label>
+                <input type="text" class="project-title"
+                    placeholder="Project name">
+            </div>
+
+            <div class="input-group">
+                <label>Project Description</label>
+                <textarea class="project-description" rows="3"
+                    placeholder="Describe your project..."></textarea>
+            </div>
+
+            <div class="input-group">
+                <label>Technologies Used</label>
+                <input type="text" class="project-technologies"
+                    placeholder="Python, HTML, CSS...">
+            </div>
+
+            <button type="button" class="remove-project-btn">
+                Remove Project
+            </button>
+        `;
+
+        projectsContainer.appendChild(projectEntry);
+
+        projectEntry.querySelector(".remove-project-btn")
+            .addEventListener("click", function () {
+
+                projectEntry.remove();
+
+            });
+
+    });
+
+}
+
+
+// GET ALL PROJECTS
+
+function getProjects() {
+
+    const entries = projectsContainer.querySelectorAll(".project-entry");
+
+    const projects = [];
+
+    entries.forEach(function (entry) {
+
+        const title =
+            entry.querySelector("#projectTitle, .project-title")?.value || "";
+
+        const description =
+            entry.querySelector("#projectDescription, .project-description")?.value || "";
+
+        const technologies =
+            entry.querySelector("#projectTechnologies, .project-technologies")?.value || "";
+
+        if (title || description || technologies) {
+
+            projects.push({
+                title,
+                description,
+                technologies
+            });
+
+        }
+
+    });
+
+    return projects;
+}
+
+
+// EDIT MODE
 
 const editResume = JSON.parse(
     localStorage.getItem("selectedResumeForEdit") || "null"
 );
 
-if (editResume) {
 
-    const fields = [
-        "fullName", "jobTitle", "email", "phone",
-        "location", "linkedin", "objective", "degree",
-        "college", "passingYear", "grade", "skills",
-        "projectTitle", "projectDescription", "company",
-        "role", "experienceDescription", "certifications",
-        "languages", "hobbies"
-    ];
+const fields = [
+    "fullName",
+    "jobTitle",
+    "email",
+    "phone",
+    "location",
+    "linkedin",
+    "github",
+    "portfolio",
+    "objective",
+    "degree",
+    "college",
+    "passingYear",
+    "grade",
+    "school",
+    "twelthGrade",
+    "tenthGrade",
+    "programmingSkills",
+    "webSkills",
+    "databaseSkills",
+    "aiSkills",
+    "skills",
+    "company",
+    "role",
+    "workDuration",
+    "experienceDescription",
+    "internshipCompany",
+    "internshipRole",
+    "internshipDuration",
+    "internshipDescription",
+    "certifications",
+    "achievements",
+    "languages",
+    "softSkills",
+    "hobbies"
+];
+
+
+function fillEditData() {
+
+    if (!editResume) return;
 
     fields.forEach(function (id) {
+
         const input = document.getElementById(id);
 
         if (input) {
             input.value = editResume[id] || "";
         }
+
     });
+
+    if (editResume.profilePhoto && photoPreview) {
+
+        uploadedPhoto = editResume.profilePhoto;
+
+        photoPreview.src = uploadedPhoto;
+        photoPreview.style.display = "block";
+
+    }
+
+    // RESTORE PROJECTS
+
+    if (editResume.projects && projectsContainer) {
+
+        projectsContainer.innerHTML = "";
+
+        editResume.projects.forEach(function (project, index) {
+
+            const entry = document.createElement("div");
+
+            entry.className = "project-entry";
+
+            if (index === 0) {
+
+                entry.innerHTML = `
+                    <div class="input-group">
+                        <label>Project Title</label>
+                        <input type="text" id="projectTitle">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Project Description</label>
+                        <textarea id="projectDescription" rows="3"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Technologies Used</label>
+                        <input type="text" id="projectTechnologies">
+                    </div>
+                `;
+
+            } else {
+
+                entry.innerHTML = `
+                    <hr>
+
+                    <div class="input-group">
+                        <label>Project Title</label>
+                        <input type="text" class="project-title">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Project Description</label>
+                        <textarea class="project-description" rows="3"></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Technologies Used</label>
+                        <input type="text" class="project-technologies">
+                    </div>
+
+                    <button type="button" class="remove-project-btn">
+                        Remove Project
+                    </button>
+                `;
+
+                entry.querySelector(".remove-project-btn")
+                    .addEventListener("click", () => entry.remove());
+
+            }
+
+            projectsContainer.appendChild(entry);
+
+            entry.querySelector("#projectTitle, .project-title").value =
+                project.title || "";
+
+            entry.querySelector("#projectDescription, .project-description").value =
+                project.description || "";
+
+            entry.querySelector("#projectTechnologies, .project-technologies").value =
+                project.technologies || "";
+
+        });
+
+    } else if (editResume) {
+
+        document.getElementById("projectTitle").value =
+            editResume.projectTitle || "";
+
+        document.getElementById("projectDescription").value =
+            editResume.projectDescription || "";
+
+    }
 
     document.querySelector(".builder-heading h1").textContent =
         "Edit Your Resume";
 
     document.querySelector(".save-btn").textContent =
         "Update Resume →";
+
+}
+
+fillEditData();
+
+
+// FIREBASE LOGIN AND SAVE
+
+if (resumeForm) {
+
+    onAuthStateChanged(auth, function (user) {
+
+        if (!user) {
+
+            window.location.href = "login.html";
+            return;
+
+        }
+
+        currentUser = user;
+
+    });
+
+
+    resumeForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        if (!currentUser) {
+
+            alert("Please wait for login verification.");
+            return;
+
+        }
+
+        const resumeData = {};
+
+        fields.forEach(function (id) {
+
+            const input = document.getElementById(id);
+
+            resumeData[id] = input ? input.value.trim() : "";
+
+        });
+
+
+        // PROJECT DETAILS
+
+        resumeData.projects = getProjects();
+
+        resumeData.projectTitle =
+            resumeData.projects[0]?.title || "";
+
+        resumeData.projectDescription =
+            resumeData.projects[0]?.description || "";
+
+        resumeData.projectTechnologies =
+            resumeData.projects[0]?.technologies || "";
+
+
+        // PHOTO
+
+        resumeData.profilePhoto = uploadedPhoto ||
+            (editResume ? editResume.profilePhoto || "" : "");
+
+
+        // TEMPLATE
+
+        resumeData.template = localStorage.getItem(
+            "selectedResumeTemplate"
+        ) || (editResume ? editResume.template || "modern" : "modern");
+
+
+        // RESUME ID
+
+        resumeData.id = editResume ? editResume.id : Date.now();
+
+
+        try {
+
+            const resumeRef = doc(
+                db,
+                "users",
+                currentUser.uid,
+                "resumes",
+                String(resumeData.id)
+            );
+
+            if (editResume) {
+
+                await updateDoc(resumeRef, resumeData);
+
+                alert("Resume updated successfully!");
+
+                localStorage.removeItem("selectedResumeForEdit");
+
+            } else {
+
+                await setDoc(resumeRef, resumeData);
+
+                alert("Resume saved successfully!");
+
+            }
+
+
+            // LOCAL STORAGE
+
+            let resumes = JSON.parse(
+                localStorage.getItem("resumeCraftResumes") || "[]"
+            );
+
+            const existingIndex = resumes.findIndex(
+                item => String(item.id) === String(resumeData.id)
+            );
+
+            if (existingIndex !== -1) {
+
+                resumes[existingIndex] = resumeData;
+
+            } else {
+
+                resumes.push(resumeData);
+
+            }
+
+            localStorage.setItem(
+                "resumeCraftResumes",
+                JSON.stringify(resumes)
+            );
+
+            localStorage.setItem(
+                "selectedResumeForPreview",
+                JSON.stringify(resumeData)
+            );
+
+
+            // GO TO PREVIEW
+
+            window.location.href = "resume-preview.html";
+
+        } catch (error) {
+
+            console.error("Resume Save Error:", error);
+
+            alert("Resume save failed: " + error.message);
+
+        }
+
+    });
+
 }

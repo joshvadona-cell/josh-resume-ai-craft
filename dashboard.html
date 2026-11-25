@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard - ResumeCraft AI</title>
+    <title>Dashboard - Josh Resume AI Craft</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,36 +14,42 @@
 
     <div class="dashboard-container">
 
-        <!-- Sidebar -->
+        <!-- SIDEBAR -->
 
         <aside class="sidebar">
 
             <h2 class="dashboard-logo">
-                ResumeCraft <span>AI</span>
+                Josh Resume <span>AI Craft</span>
             </h2>
 
             <nav class="sidebar-menu">
 
-                <a href="dashboard.html" class="active">🏠 Dashboard</a>
+                <a href="dashboard.html" class="active">
+                    🏠 Dashboard
+                </a>
 
-                <a href="resume-builder.html">📄 Create Resume</a>
+                <a href="#my-resumes">
+                    📄 My Resumes
+                </a>
 
-                <a href="templates.html">🎨 Templates</a>
-
-                <a href="#">🤖 AI Assistant</a>
-
-                <a href="#">⚙️ Settings</a>
+                <a href="templates.html">
+                    🎨 Browse Templates
+                </a>
 
             </nav>
 
-            <a href="#" class="logout-btn" id="logoutBtn">↪ Logout</a>
+            <a href="#" class="logout-btn" id="logoutBtn">
+                ↪ Logout
+            </a>
 
         </aside>
 
 
-        <!-- Main Content -->
+        <!-- MAIN CONTENT -->
 
         <main class="dashboard-main">
+
+            <!-- DASHBOARD HEADER -->
 
             <div class="dashboard-header">
 
@@ -54,33 +60,35 @@
 
                 <div class="user-profile">
 
-    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-avatar" id="userAvatar">U</div>
 
-    <div class="user-details">
-        <span id="userName">User</span>
-        <small id="userEmail"></small>
-    </div>
+                    <div class="user-details">
+                        <span id="userName">User</span>
+                        <small id="userEmail"></small>
+                    </div>
 
-</div>
+                </div>
 
             </div>
 
 
-            <!-- Welcome Card -->
+            <!-- WELCOME CARD -->
 
             <section class="welcome-card">
 
                 <div>
+
                     <h2>Create Your Professional Resume</h2>
 
                     <p>
-                        Build an impressive resume with AI assistance
-                        and professional templates.
+                        Build an impressive resume using professional
+                        templates and download it easily.
                     </p>
 
-                    <a href="resume-builder.html" class="dashboard-create-btn">
+                    <a href="templates.html" class="dashboard-create-btn">
                         + Create New Resume
                     </a>
+
                 </div>
 
                 <div class="welcome-icon">📄</div>
@@ -88,61 +96,86 @@
             </section>
 
 
-            <!-- Statistics -->
+            <!-- DASHBOARD STATISTICS -->
 
             <section class="dashboard-stats">
 
                 <div class="stat-card">
+
                     <h3>📄</h3>
+
                     <h2 id="totalResumes">0</h2>
+
                     <p>Total Resumes</p>
+
                 </div>
 
+
                 <div class="stat-card">
+
                     <h3>🎨</h3>
-                    <h2>5+</h2>
-                    <p>Resume Templates</p>
+
+                    <h2>12+</h2>
+
+                    <p>Professional Templates</p>
+
                 </div>
 
+
                 <div class="stat-card">
-                    <h3>🤖</h3>
-                    <h2>AI</h2>
-                    <p>AI Assistant</p>
+
+                    <h3>📥</h3>
+
+                    <h2>PDF</h2>
+
+                    <p>Download Resume</p>
+
                 </div>
 
             </section>
 
 
-            <!-- My Resumes -->
+            <!-- MY RESUMES -->
 
-            <section class="my-resumes">
+            <section class="my-resumes" id="my-resumes">
 
                 <div class="section-heading">
 
                     <h2>My Resumes</h2>
 
-                    <a href="resume-builder.html">
-                        Create New +
-                    </a>
+                </div>
+
+
+                <div id="resumesList" class="resumes-list">
+
+                    <div class="empty-resume">
+
+                        <div>📁</div>
+
+                        <h3>Loading Your Resumes...</h3>
+
+                        <p>
+                            Please wait while we fetch your resumes.
+                        </p>
+
+                    </div>
 
                 </div>
 
-               <div id="resumesList" class="resumes-list">
+            </section>
 
-    <div class="empty-resume">
-
-        <div>📁</div>
-
-        <h3>Loading Your Resumes...</h3>
-
-        <p>Please wait while we fetch your resumes.</p>
+        </main>
 
     </div>
 
-</div>
+
+    <!-- JAVASCRIPT -->
 
     <script src="script.js"></script>
-<script type="module" src="logout-auth.js"></script>
-<script type="module" src="dashboard-auth.js"></script>
+
+    <script type="module" src="logout-auth.js"></script>
+
+    <script type="module" src="dashboard-auth.js"></script>
+
 </body>
 </html>

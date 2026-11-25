@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Templates - Josh Resume AI Craft</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="templates-body">
+
+<header class="preview-header">
+    <h2>Josh Resume <span>AI Craft</span></h2>
+    <div>
+        <a href="dashboard.html">← Dashboard</a>
+    </div>
+</header>
+
+<main class="templates-container">
+
+    <div class="templates-heading">
+        <h1>Choose Your Resume Template</h1>
+        <p>Choose from 12 professional resume designs.</p>
+    </div>
+
+    <div class="template-grid">
+
+        <!-- 1. FRESHER -->
+        <div class="template-card">
+            <div class="template-preview modern-template">
+                <h2>YOUR NAME</h2>
+                <h4>Fresher / Recent Graduate</h4>
+                <hr>
+                <h3>CAREER OBJECTIVE</h3>
+                <p>Motivated graduate seeking an entry-level opportunity.</p>
+                <h3>EDUCATION</h3>
+                <p>Degree / College Details</p>
+                <h3>TECHNICAL SKILLS</h3>
+                <p>Programming | AI | Database</p>
+                <h3>PROJECTS</h3>
+                <p>Academic Projects</p>
+            </div>
+            <h2>Fresher Resume</h2>
+            <p>Perfect for students and recent graduates.</p>
+            <button onclick="selectTemplate('modern')">Use This Template</button>
+        </div>
+
+        <!-- 2. MODERN PROFESSIONAL -->
+        <div class="template-card">
+            <div class="template-preview modern-professional-template">
+                <h2>YOUR NAME</h2>
+                <h4>Professional Job Title</h4>
+                <hr>
+                <h3>PROFILE SUMMARY</h3>
+                <p>Professional profile and career highlights.</p>
+                <h3>SKILLS</h3>
+                <p>Technical and Professional Skills</p>
+                <h3>EXPERIENCE</h3>
+                <p>Work Experience Details</p>
+                <h3>EDUCATION</h3>
+                <p>Academic Qualifications</p>
+            </div>
+            <h2>Modern Professional</h2>
+            <p>Clean and modern design for job seekers.</p>
+            <button onclick="selectTemplate('modernprofessional')">Use This Template</button>
+        </div>
+
+        <!-- 3. CORPORATE -->
+        <div class="template-card">
+            <div class="template-preview corporate-template">
+                <h2>YOUR NAME</h2>
+                <h4>Corporate Professional</h4>
+                <hr>
+                <h3>PROFESSIONAL SUMMARY</h3>
+                <p>Career overview and professional strengths.</p>
+                <h3>WORK EXPERIENCE</h3>
+                <p>Company and Job Responsibilities</p>
+                <h3>CORE COMPETENCIES</h3>
+                <p>Key Skills and Expertise</p>
+                <h3>EDUCATION</h3>
+                <p>Degree / Institution</p>
+            </div>
+            <h2>Corporate Resume</h2>
+            <p>Formal design for corporate job applications.</p>
+            <button onclick="selectTemplate('corporate')">Use This Template</button>
+        </div>
+
+        <!-- 4. EXECUTIVE -->
+        <div class="template-card">
+            <div class="template-preview executive-template">
+                <h2>YOUR NAME</h2>
+                <h4>Senior Professional</h4>
+                <hr>
+                <h3>EXECUTIVE SUMMARY</h3>
+                <p>Leadership experience and career achievements.</p>
+                <h3>CAREER HISTORY</h3>
+                <p>Professional Experience</p>
+                <h3>KEY ACHIEVEMENTS</h3>
+                <p>Major Career Accomplishments</p>
+                <h3>EDUCATION</h3>
+                <p>Academic Background</p>
+            </div>
+            <h2>Executive Resume</h2>
+            <p>Designed for senior-level and leadership roles.</p>
+            <button onclick="selectTemplate('executive')">Use This Template</button>
+        </div>
+
+        <!-- 5. MINIMALIST -->
+        <div class="template-card">
+            <div class="template-preview minimalist-template">
+                <h2>YOUR NAME</h2>
+                <h4>Professional Title</h4>
+                <hr>
+                <h3>ABOUT ME</h3>
+                <p>Short professional introduction.</p>
+                <h3>SKILLS</h3>
+                <p>Important Skills</p>
+                <h3>PROJECTS</h3>
+                <p>Selected Projects</p>
+                <h3>EDUCATION</h3>
+                <p>Academic Details</p>
+            </div>
+            <h2>Minimalist Resume</h2>
+            <p>Simple, clean and easy-to-read design.</p>
+            <button onclick="selectTemplate('minimalist')">Use This Template</button>
+        </div>
+
+        <!-- 6. EXPERIENCED -->
+        <div class="template-card">
+            <div class="template-preview professional-template">
+                <h2>YOUR NAME</h2>
+                <h4>Experienced Professional</h4>
+                <hr>
+                <h3>PROFESSIONAL SUMMARY</h3>
+                <p>Experienced professional with industry knowledge.</p>
+                <h3>WORK EXPERIENCE</h3>
+                <p>Company Name | Job Role</p>
+                <h3>KEY SKILLS</h3>
+                <p>Technical and Professional Skills</p>
+                <h3>EDUCATION</h3>
+                <p>Degree / Institution</p>
+            </div>
+            <h2>Experienced Resume</h2>
+            <p>Suitable for candidates with work experience.</p>
+            <button onclick="selectTemplate('professional')">Use This Template</button>
+        </div>
+
+        <!-- 7. ATS FRIENDLY -->
+        <div class="template-card">
+            <div class="template-preview ats-template">
+                <h2>YOUR NAME</h2>
+                <h4>Professional Resume</h4>
+                <hr>
+                <h3>SUMMARY</h3>
+                <p>Clear and job-focused professional summary.</p>
+                <h3>SKILLS</h3>
+                <p>Relevant Job Skills</p>
+                <h3>EXPERIENCE</h3>
+                <p>Work History</p>
+                <h3>EDUCATION</h3>
+                <p>Academic Qualifications</p>
+            </div>
+            <h2>ATS-Friendly Resume</h2>
+            <p>Simple structure designed for easy resume scanning.</p>
+            <button onclick="selectTemplate('ats')">Use This Template</button>
+        </div>
+
+        <!-- 8. ELEGANT -->
+        <div class="template-card">
+            <div class="template-preview elegant-template">
+                <h2>YOUR NAME</h2>
+                <h4>Professional Profile</h4>
+                <hr>
+                <h3>ABOUT ME</h3>
+                <p>Personal introduction and career goals.</p>
+                <h3>EXPERIENCE</h3>
+                <p>Professional Journey</p>
+                <h3>EDUCATION</h3>
+                <p>Academic Details</p>
+                <h3>SKILLS</h3>
+                <p>Core Competencies</p>
+            </div>
+            <h2>Elegant Resume</h2>
+            <p>Stylish and polished professional design.</p>
+            <button onclick="selectTemplate('elegant')">Use This Template</button>
+        </div>
+
+        <!-- 9. CREATIVE -->
+        <div class="template-card">
+            <div class="template-preview creative-template">
+                <h2>YOUR NAME</h2>
+                <h4>Creative Professional</h4>
+                <hr>
+                <h3>PROFILE</h3>
+                <p>Creative introduction and career goals.</p>
+                <h3>MY SKILLS</h3>
+                <p>Creative and Technical Skills</p>
+                <h3>PROJECTS</h3>
+                <p>Creative Portfolio</p>
+                <h3>EDUCATION</h3>
+                <p>Academic Background</p>
+            </div>
+            <h2>Creative Resume</h2>
+            <p>For designers and creative professionals.</p>
+            <button onclick="selectTemplate('creative')">Use This Template</button>
+        </div>
+
+        <!-- 10. IT PROFESSIONAL -->
+        <div class="template-card">
+            <div class="template-preview tech-template">
+                <h2>YOUR NAME</h2>
+                <h4>IT Professional / Developer</h4>
+                <hr>
+                <h3>TECHNICAL SUMMARY</h3>
+                <p>Technology-focused professional profile.</p>
+                <h3>TECH STACK</h3>
+                <p>Python | Java | SQL | Web</p>
+                <h3>PROJECTS</h3>
+                <p>Software Development Projects</p>
+                <h3>EDUCATION</h3>
+                <p>Degree Details</p>
+            </div>
+            <h2>IT Professional</h2>
+            <p>Suitable for software and IT job applications.</p>
+            <button onclick="selectTemplate('tech')">Use This Template</button>
+        </div>
+
+        <!-- 11. ACADEMIC -->
+        <div class="template-card">
+            <div class="template-preview academic-template">
+                <h2>YOUR NAME</h2>
+                <h4>Academic Profile</h4>
+                <hr>
+                <h3>EDUCATION</h3>
+                <p>Academic Qualifications</p>
+                <h3>RESEARCH & PROJECTS</h3>
+                <p>Research and Academic Projects</p>
+                <h3>CERTIFICATIONS</h3>
+                <p>Courses and Certifications</p>
+                <h3>SKILLS</h3>
+                <p>Technical Knowledge</p>
+            </div>
+            <h2>Academic Resume</h2>
+            <p>For students, research and academic applications.</p>
+            <button onclick="selectTemplate('academic')">Use This Template</button>
+        </div>
+
+        <!-- 12. COMPACT -->
+        <div class="template-card">
+            <div class="template-preview compact-template">
+                <h2>YOUR NAME</h2>
+                <h4>Professional Candidate</h4>
+                <hr>
+                <h3>PROFILE</h3>
+                <p>Short professional summary.</p>
+                <h3>SKILLS</h3>
+                <p>Key Skills and Expertise</p>
+                <h3>EXPERIENCE</h3>
+                <p>Career History</p>
+                <h3>EDUCATION</h3>
+                <p>Degree and Institution</p>
+            </div>
+            <h2>Compact Resume</h2>
+            <p>Space-saving layout with organized sections.</p>
+            <button onclick="selectTemplate('compact')">Use This Template</button>
+        </div>
+
+    </div>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>
